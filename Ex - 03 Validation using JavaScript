@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Form Validation</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#4f46e5,#7c3aed,#ec4899);
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:450px;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#4f46e5;
+    margin-bottom:20px;
+}
+
+.input-group{
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    margin-bottom:5px;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:15px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#7c3aed;
+}
+
+.error{
+    color:red;
+    font-size:13px;
+    margin-top:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#7c3aed;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#5b21b6;
+}
+
+.success{
+    text-align:center;
+    color:green;
+    margin-top:15px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Registration Form</h1>
+
+<form id="myForm">
+
+<div class="input-group">
+<label>Full Name</label>
+<input type="text" id="name">
+<div class="error" id="nameError"></div>
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="text" id="email">
+<div class="error" id="emailError"></div>
+</div>
+
+<div class="input-group">
+<label>Mobile Number</label>
+<input type="text" id="mobile">
+<div class="error" id="mobileError"></div>
+</div>
+
+<div class="input-group">
+<label>Password</label>
+<input type="password" id="password">
+<div class="error" id="passwordError"></div>
+</div>
+
+<div class="input-group">
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword">
+<div class="error" id="confirmError"></div>
+</div>
+
+<button type="submit">Register</button>
+
+<div class="success" id="successMsg"></div>
+
+</form>
+
+</div>
+
+<script>
+
+document.getElementById("myForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+document.getElementById("nameError").innerHTML="";
+document.getElementById("emailError").innerHTML="";
+document.getElementById("mobileError").innerHTML="";
+document.getElementById("passwordError").innerHTML="";
+document.getElementById("confirmError").innerHTML="";
+document.getElementById("successMsg").innerHTML="";
+
+let name=document.getElementById("name").value.trim();
+let email=document.getElementById("email").value.trim();
+let mobile=document.getElementById("mobile").value.trim();
+let password=document.getElementById("password").value;
+let confirmPassword=document.getElementById("confirmPassword").value;
+
+let valid=true;
+
+let namePattern=/^[A-Za-z ]+$/;
+let emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+let mobilePattern=/^[0-9]{10}$/;
+
+if(name===""){
+    document.getElementById("nameError").innerHTML="Name is required";
+    valid=false;
+}
+else if(!namePattern.test(name)){
+    document.getElementById("nameError").innerHTML="Only alphabets allowed";
+    valid=false;
+}
+
+if(email===""){
+    document.getElementById("emailError").innerHTML="Email is required";
+    valid=false;
+}
+else if(!emailPattern.test(email)){
+    document.getElementById("emailError").innerHTML="Invalid email format";
+    valid=false;
+}
+
+if(mobile===""){
+    document.getElementById("mobileError").innerHTML="Mobile number is required";
+    valid=false;
+}
+else if(!mobilePattern.test(mobile)){
+    document.getElementById("mobileError").innerHTML="Enter valid 10-digit number";
+    valid=false;
+}
+
+if(password.length<8){
+    document.getElementById("passwordError").innerHTML="Password must contain at least 8 characters";
+    valid=false;
+}
+
+if(password!==confirmPassword){
+    document.getElementById("confirmError").innerHTML="Passwords do not match";
+    valid=false;
+}
+
+if(valid){
+    document.getElementById("successMsg").innerHTML=
+    "Registration Successful!";
+}
+
+});
+
+</script>
+
+</body>
+</html>
