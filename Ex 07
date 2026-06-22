@@ -1,0 +1,140 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Static to Dynamic Web Page using JSP</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+}
+
+.container{
+    width:700px;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0px 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    color:#2563eb;
+    margin-bottom:20px;
+}
+
+input{
+    width:80%;
+    padding:12px;
+    margin:15px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+}
+
+button{
+    padding:12px 30px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    background:#f4f4f4;
+    border-radius:10px;
+}
+
+.name{
+    color:#7c3aed;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.time{
+    color:green;
+    font-size:18px;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Dynamic Web Page Using JSP</h1>
+
+<form method="post">
+
+<input type="text"
+       name="username"
+       placeholder="Enter Your Name"
+       required>
+
+<br>
+
+<button type="submit">
+Generate Dynamic Page
+</button>
+
+</form>
+
+<%
+
+String username = request.getParameter("username");
+
+if(username != null)
+{
+%>
+
+<div class="result">
+
+<h2>Welcome</h2>
+
+<p class="name">
+<%= username %>
+</p>
+
+<br>
+
+<h3>Current Date and Time</h3>
+
+<p class="time">
+<%= new java.util.Date() %>
+</p>
+
+</div>
+
+<%
+}
+%>
+
+</div>
+
+</body>
+</html>
