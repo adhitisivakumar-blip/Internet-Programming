@@ -1,0 +1,153 @@
+//index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servlet Form Submission</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+        }
+
+        .container{
+            background:white;
+            width:400px;
+            padding:35px;
+            border-radius:20px;
+            box-shadow:0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        h1{
+            text-align:center;
+            color:#2563eb;
+            margin-bottom:20px;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin:10px 0;
+            border:2px solid #ddd;
+            border-radius:10px;
+        }
+
+        input:focus{
+            outline:none;
+            border-color:#7c3aed;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:10px;
+            background:#2563eb;
+            color:white;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Login Form</h1>
+
+    <form action="LoginServlet" method="post">
+
+        <input type="text"
+               name="username"
+               placeholder="Enter Username"
+               required>
+
+        <input type="password"
+               name="password"
+               placeholder="Enter Password"
+               required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
+
+//LoginServlet.java
+import java.io.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+
+public class LoginServlet extends HttpServlet
+{
+    public void doPost(HttpServletRequest request,
+                       HttpServletResponse response)
+                       throws ServletException, IOException
+    {
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+
+        String username =
+            request.getParameter("username");
+
+        String password =
+            request.getParameter("password");
+
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet Response</title>");
+        out.println("</head>");
+        out.println("<body style='font-family:Arial;"
+                + "text-align:center;"
+                + "padding-top:100px;"
+                + "background:#f4f4f4;'>");
+
+        out.println("<h1 style='color:#2563eb;'>");
+        out.println("Welcome " + username);
+        out.println("</h1>");
+
+        out.println("<h3>");
+        out.println("HTML Form Data Successfully "
+                + "Received by Servlet");
+        out.println("</h3>");
+
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
+
+//web.xml
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee">
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>
