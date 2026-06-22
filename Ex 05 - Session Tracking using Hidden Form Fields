@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Tracking Using Hidden Form Fields</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+}
+
+.container{
+    width:450px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+h1{
+    color:#2563eb;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result{
+    margin-top:20px;
+    font-size:18px;
+    color:green;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Session Tracking Demo</h1>
+
+<form id="userForm">
+
+    <input type="text"
+           id="username"
+           placeholder="Enter Your Name"
+           required>
+
+    <!-- Hidden Form Field -->
+    <input type="hidden"
+           id="hiddenUser"
+           name="hiddenUser">
+
+    <button type="submit">
+        Submit
+    </button>
+
+</form>
+
+<div class="result" id="output"></div>
+
+</div>
+
+<script>
+
+document.getElementById("userForm").addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    let username =
+        document.getElementById("username").value;
+
+    // Store value in hidden field
+    document.getElementById("hiddenUser").value =
+        username;
+
+    // Retrieve value from hidden field
+    let sessionValue =
+        document.getElementById("hiddenUser").value;
+
+    document.getElementById("output").innerHTML =
+        "Session Maintained Successfully<br><br>" +
+        "User Name : " + sessionValue;
+});
+
+</script>
+
+</body>
+</html>
