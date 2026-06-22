@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Examination System</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+    padding:40px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:25px;
+}
+
+.question{
+    margin-bottom:25px;
+}
+
+.question h3{
+    color:#333;
+    margin-bottom:10px;
+}
+
+input[type="submit"]{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Online Examination</h1>
+
+<form action="ExamServlet" method="post">
+
+<div class="question">
+<h3>1. Which language is used for Servlet programming?</h3>
+<input type="radio" name="q1" value="Java"> Java<br>
+<input type="radio" name="q1" value="Python"> Python<br>
+<input type="radio" name="q1" value="C"> C<br>
+</div>
+
+<div class="question">
+<h3>2. Which protocol is used on the Web?</h3>
+<input type="radio" name="q2" value="FTP"> FTP<br>
+<input type="radio" name="q2" value="HTTP"> HTTP<br>
+<input type="radio" name="q2" value="SMTP"> SMTP<br>
+</div>
+
+<div class="question">
+<h3>3. Which tag is used to create a form?</h3>
+<input type="radio" name="q3" value="table"> table<br>
+<input type="radio" name="q3" value="form"> form<br>
+<input type="radio" name="q3" value="body"> body<br>
+</div>
+
+<input type="submit" value="Submit Exam">
+
+</form>
+
+</div>
+
+</body>
+</html>
