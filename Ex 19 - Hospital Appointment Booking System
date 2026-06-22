@@ -1,0 +1,244 @@
+<?php
+
+$message = "";
+
+if(isset($_POST['bookappointment']))
+{
+    $patient = $_POST['patient'];
+    $doctor = $_POST['doctor'];
+    $department = $_POST['department'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+
+    $data = $patient."|".$doctor."|".$department."|".$date."|".$time."\n";
+
+    file_put_contents(
+        "hospitalappointments.txt",
+        $data,
+        FILE_APPEND
+    );
+
+    $message = "Appointment Booked Successfully!";
+}
+
+$appointments = [];
+
+if(file_exists("hospitalappointments.txt"))
+{
+    $appointments = file(
+        "hospitalappointments.txt",
+        FILE_IGNORE_NEW_LINES
+    );
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Hospital Appointment Booking System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#0ea5e9,#2563eb,#4f46e5);
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:25px;
+}
+
+.form-section{
+    background:#f0f9ff;
+    padding:20px;
+    border-radius:15px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+    padding:12px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🏥 Online Hospital Appointment Booking System</h1>
+
+<div class="form-section">
+
+<form method="post">
+
+<input
+type="text"
+name="patient"
+placeholder="Enter Patient Name"
+required>
+
+<select name="doctor" required>
+
+<option value="">
+Select Doctor
+</option>
+
+<option>Dr. Kumar</option>
+<option>Dr. Priya</option>
+<option>Dr. Rajesh</option>
+<option>Dr. Meena</option>
+
+</select>
+
+<select name="department" required>
+
+<option value="">
+Select Department
+</option>
+
+<option>Cardiology</option>
+<option>Neurology</option>
+<option>Orthopedics</option>
+<option>Pediatrics</option>
+<option>General Medicine</option>
+
+</select>
+
+<label>Appointment Date</label>
+
+<input
+type="date"
+name="date"
+required>
+
+<label>Appointment Time</label>
+
+<input
+type="time"
+name="time"
+required>
+
+<button
+type="submit"
+name="bookappointment">
+Book Appointment
+</button>
+
+</form>
+
+<div class="success">
+<?php echo $message; ?>
+</div>
+
+</div>
+
+<h2 style="margin-top:25px;color:#2563eb;">
+Appointment Records
+</h2>
+
+<table>
+
+<tr>
+<th>Patient Name</th>
+<th>Doctor</th>
+<th>Department</th>
+<th>Appointment Date</th>
+<th>Appointment Time</th>
+</tr>
+
+<?php
+
+foreach($appointments as $appointment)
+{
+    $details = explode("|",$appointment);
+
+    echo "<tr>";
+    echo "<td>".$details[0]."</td>";
+    echo "<td>".$details[1]."</td>";
+    echo "<td>".$details[2]."</td>";
+    echo "<td>".$details[3]."</td>";
+    echo "<td>".$details[4]."</td>";
+    echo "</tr>";
+}
+
+?>
+
+</table>
+
+</div>
+
+</body>
+</html>
