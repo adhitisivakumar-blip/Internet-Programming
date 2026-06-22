@@ -1,0 +1,246 @@
+<?php
+
+$message = "";
+
+if(isset($_POST['bookroom']))
+{
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $room = $_POST['room'];
+    $checkin = $_POST['checkin'];
+    $checkout = $_POST['checkout'];
+
+    $data = $name."|".$email."|".$room."|".$checkin."|".$checkout."\n";
+
+    file_put_contents(
+        "bookings.txt",
+        $data,
+        FILE_APPEND
+    );
+
+    $message = "Room Booked Successfully!";
+}
+
+$bookings = [];
+
+if(file_exists("bookings.txt"))
+{
+    $bookings = file(
+        "bookings.txt",
+        FILE_IGNORE_NEW_LINES
+    );
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Hotel Room Booking</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:25px;
+}
+
+.form-section{
+    background:#f4f4f4;
+    padding:20px;
+    border-radius:15px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.success{
+    text-align:center;
+    color:green;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border:1px solid #ddd;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🏨 Online Hotel Room Booking System</h1>
+
+<div class="form-section">
+
+<form method="post">
+
+<input
+type="text"
+name="name"
+placeholder="Enter Customer Name"
+required>
+
+<input
+type="email"
+name="email"
+placeholder="Enter Email Address"
+required>
+
+<select name="room" required>
+
+<option value="">
+Select Room Type
+</option>
+
+<option>
+Single Room
+</option>
+
+<option>
+Double Room
+</option>
+
+<option>
+Deluxe Room
+</option>
+
+<option>
+Suite Room
+</option>
+
+</select>
+
+<label>Check-In Date</label>
+
+<input
+type="date"
+name="checkin"
+required>
+
+<label>Check-Out Date</label>
+
+<input
+type="date"
+name="checkout"
+required>
+
+<button
+type="submit"
+name="bookroom">
+Book Room
+</button>
+
+</form>
+
+<div class="success">
+<?php echo $message; ?>
+</div>
+
+</div>
+
+<h2 style="margin-top:25px;color:#2563eb;">
+Booking Details
+</h2>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Room Type</th>
+<th>Check-In</th>
+<th>Check-Out</th>
+</tr>
+
+<?php
+
+foreach($bookings as $booking)
+{
+    $details = explode("|",$booking);
+
+    echo "<tr>";
+    echo "<td>".$details[0]."</td>";
+    echo "<td>".$details[1]."</td>";
+    echo "<td>".$details[2]."</td>";
+    echo "<td>".$details[3]."</td>";
+    echo "<td>".$details[4]."</td>";
+    echo "</tr>";
+}
+
+?>
+
+</table>
+
+</div>
+
+</body>
+</html>
