@@ -1,0 +1,243 @@
+<?php
+
+$message = "";
+
+if(isset($_POST['booktrain']))
+{
+    $name = $_POST['name'];
+    $train = $_POST['train'];
+    $source = $_POST['source'];
+    $destination = $_POST['destination'];
+    $journeydate = $_POST['journeydate'];
+    $class = $_POST['class'];
+
+    $data = $name."|".$train."|".$source."|".$destination."|".$journeydate."|".$class."\n";
+
+    file_put_contents(
+        "reservations.txt",
+        $data,
+        FILE_APPEND
+    );
+
+    $message = "Train Ticket Reserved Successfully!";
+}
+
+$reservations = [];
+
+if(file_exists("reservations.txt"))
+{
+    $reservations = file(
+        "reservations.txt",
+        FILE_IGNORE_NEW_LINES
+    );
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Train Reservation System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:25px;
+}
+
+.form-section{
+    background:#f4f4f4;
+    padding:20px;
+    border-radius:15px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+    padding:12px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚆 Online Train Reservation System</h1>
+
+<div class="form-section">
+
+<form method="post">
+
+<input
+type="text"
+name="name"
+placeholder="Enter Passenger Name"
+required>
+
+<input
+type="text"
+name="train"
+placeholder="Enter Train Name"
+required>
+
+<input
+type="text"
+name="source"
+placeholder="Enter Source Station"
+required>
+
+<input
+type="text"
+name="destination"
+placeholder="Enter Destination Station"
+required>
+
+<label>Journey Date</label>
+
+<input
+type="date"
+name="journeydate"
+required>
+
+<select name="class" required>
+
+<option value="">
+Select Travel Class
+</option>
+
+<option>Sleeper</option>
+<option>Third AC</option>
+<option>Second AC</option>
+<option>First AC</option>
+
+</select>
+
+<button
+type="submit"
+name="booktrain">
+Reserve Ticket
+</button>
+
+</form>
+
+<div class="success">
+<?php echo $message; ?>
+</div>
+
+</div>
+
+<h2 style="margin-top:25px;color:#2563eb;">
+Reservation Details
+</h2>
+
+<table>
+
+<tr>
+<th>Passenger</th>
+<th>Train Name</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Journey Date</th>
+<th>Class</th>
+</tr>
+
+<?php
+
+foreach($reservations as $reservation)
+{
+    $details = explode("|",$reservation);
+
+    echo "<tr>";
+    echo "<td>".$details[0]."</td>";
+    echo "<td>".$details[1]."</td>";
+    echo "<td>".$details[2]."</td>";
+    echo "<td>".$details[3]."</td>";
+    echo "<td>".$details[4]."</td>";
+    echo "<td>".$details[5]."</td>";
+    echo "</tr>";
+}
+
+?>
+
+</table>
+
+</div>
+
+</body>
+</html>
