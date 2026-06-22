@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Mapping Demo</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    max-width:1000px;
+    width:100%;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    text-align:center;
+}
+
+h1{
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+p{
+    color:#555;
+    margin-bottom:25px;
+}
+
+.image-box{
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.image-box img{
+    width:100%;
+    transition:0.5s;
+}
+
+.image-box img:hover{
+    transform:scale(1.03);
+}
+
+.cards{
+    display:flex;
+    gap:20px;
+    margin-top:25px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.card{
+    background:#f8fafc;
+    width:250px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+footer{
+    margin-top:25px;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🌍 Interactive Image Mapping</h1>
+    <p>
+        Click on different regions of the image to visit various websites.
+    </p>
+
+    <div class="image-box">
+
+        <!-- Image -->
+        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1000"
+             alt="World Map"
+             usemap="#worldmap">
+
+        <!-- Image Map -->
+        <map name="worldmap">
+
+            <!-- North America -->
+            <area shape="rect"
+                  coords="120,120,300,250"
+                  href="https://www.google.com"
+                  target="_blank"
+                  alt="Google">
+
+            <!-- Europe -->
+            <area shape="circle"
+                  coords="520,170,60"
+                  href="https://www.wikipedia.org"
+                  target="_blank"
+                  alt="Wikipedia">
+
+            <!-- Asia -->
+            <area shape="rect"
+                  coords="600,120,850,280"
+                  href="https://www.github.com"
+                  target="_blank"
+                  alt="GitHub">
+
+        </map>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Google</h3>
+            <p>Click the North America region on the map.</p>
+        </div>
+
+        <div class="card">
+            <h3>Wikipedia</h3>
+            <p>Click the Europe region to explore knowledge.</p>
+        </div>
+
+        <div class="card">
+            <h3>GitHub</h3>
+            <p>Click the Asia region to visit GitHub.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        Internet Programming Laboratory – Experiment 1
+    </footer>
+
+</div>
+
+</body>
+</html>
