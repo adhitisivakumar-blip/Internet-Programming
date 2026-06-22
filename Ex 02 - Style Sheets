@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Style Sheets Demo</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Internal CSS -->
+    <style>
+        .internal-style {
+            background: #e0f2fe;
+            color: #0c4a6e;
+            padding: 15px;
+            border-left: 5px solid #0284c7;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Style Sheets in HTML</h1>
+
+    <p class="subtitle">
+        Demonstration of Inline, Internal and External CSS
+    </p>
+
+    <!-- Inline CSS -->
+    <div style="
+        background:#dcfce7;
+        color:#166534;
+        padding:15px;
+        border-left:5px solid green;
+        border-radius:10px;
+        margin-bottom:15px;">
+        <h3>Inline CSS</h3>
+        <p>This style is applied directly inside the HTML tag.</p>
+    </div>
+
+    <!-- Internal CSS -->
+    <div class="internal-style">
+        <h3>Internal CSS</h3>
+        <p>This style is written within the &lt;style&gt; tag.</p>
+    </div>
+
+    <!-- External CSS -->
+    <div class="external-style">
+        <h3>External CSS</h3>
+        <p>This style is applied from an external CSS file.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>Responsive Design</h2>
+            <p>CSS helps create layouts that adapt to different screen sizes.</p>
+        </div>
+
+        <div class="card">
+            <h2>Better Appearance</h2>
+            <p>CSS improves colors, fonts, spacing and visual effects.</p>
+        </div>
+
+        <div class="card">
+            <h2>Easy Maintenance</h2>
+            <p>External styles allow updating multiple pages at once.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#4f46e5,#7c3aed,#ec4899);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.container{
+    width:90%;
+    max-width:1000px;
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#4338ca;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
+}
+
+.external-style{
+    background:#f3e8ff;
+    color:#6b21a8;
+    padding:15px;
+    border-left:5px solid #9333ea;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+.cards{
+    margin-top:30px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.card{
+    width:250px;
+    padding:20px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+}
+
+.card h2{
+    color:#7c3aed;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#555;
+    line-height:1.6;
+}
