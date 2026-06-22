@@ -1,0 +1,242 @@
+<?php
+
+$message = "";
+
+if(isset($_POST['ordercake']))
+{
+    $name = $_POST['name'];
+    $cake = $_POST['cake'];
+    $weight = $_POST['weight'];
+    $quantity = $_POST['quantity'];
+    $delivery = $_POST['delivery'];
+
+    $data = $name."|".$cake."|".$weight."|".$quantity."|".$delivery."\n";
+
+    file_put_contents(
+        "orders.txt",
+        $data,
+        FILE_APPEND
+    );
+
+    $message = "Cake Ordered Successfully!";
+}
+
+$orders = [];
+
+if(file_exists("orders.txt"))
+{
+    $orders = file(
+        "orders.txt",
+        FILE_IGNORE_NEW_LINES
+    );
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Online Cake Ordering System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff6b6b,#ff8e53,#ff4d94);
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#e91e63;
+    margin-bottom:25px;
+}
+
+.form-section{
+    background:#fff5f8;
+    padding:20px;
+    border-radius:15px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#e91e63;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#c2185b;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+}
+
+th{
+    background:#e91e63;
+    color:white;
+    padding:12px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎂 Online Cake Ordering System</h1>
+
+<div class="form-section">
+
+<form method="post">
+
+<input
+type="text"
+name="name"
+placeholder="Enter Customer Name"
+required>
+
+<select name="cake" required>
+
+<option value="">
+Select Cake Flavor
+</option>
+
+<option>Chocolate Cake</option>
+<option>Black Forest Cake</option>
+<option>Red Velvet Cake</option>
+<option>Vanilla Cake</option>
+<option>Butterscotch Cake</option>
+
+</select>
+
+<select name="weight" required>
+
+<option value="">
+Select Cake Weight
+</option>
+
+<option>0.5 Kg</option>
+<option>1 Kg</option>
+<option>1.5 Kg</option>
+<option>2 Kg</option>
+
+</select>
+
+<input
+type="number"
+name="quantity"
+placeholder="Enter Quantity"
+required>
+
+<label>Delivery Date</label>
+
+<input
+type="date"
+name="delivery"
+required>
+
+<button
+type="submit"
+name="ordercake">
+Place Order
+</button>
+
+</form>
+
+<div class="success">
+<?php echo $message; ?>
+</div>
+
+</div>
+
+<h2 style="margin-top:25px;color:#e91e63;">
+Cake Order Details
+</h2>
+
+<table>
+
+<tr>
+<th>Customer Name</th>
+<th>Cake Flavor</th>
+<th>Weight</th>
+<th>Quantity</th>
+<th>Delivery Date</th>
+</tr>
+
+<?php
+
+foreach($orders as $order)
+{
+    $details = explode("|",$order);
+
+    echo "<tr>";
+    echo "<td>".$details[0]."</td>";
+    echo "<td>".$details[1]."</td>";
+    echo "<td>".$details[2]."</td>";
+    echo "<td>".$details[3]."</td>";
+    echo "<td>".$details[4]."</td>";
+    echo "</tr>";
+}
+
+?>
+
+</table>
+
+</div>
+
+</body>
+</html>
