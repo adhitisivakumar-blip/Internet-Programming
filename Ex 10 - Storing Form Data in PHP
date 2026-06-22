@@ -1,0 +1,173 @@
+<?php
+
+$name = "";
+$email = "";
+$course = "";
+$message = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $course = $_POST["course"];
+
+    // Store data in a text file
+    $data = "Name: ".$name.
+            " | Email: ".$email.
+            " | Course: ".$course."\n";
+
+    file_put_contents("studentdata.txt",
+                      $data,
+                      FILE_APPEND);
+
+    $message = "Data Stored Successfully!";
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Store Form Data Using PHP</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+}
+
+.container{
+    width:500px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0px 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:20px;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.details{
+    margin-top:20px;
+    background:#f5f5f5;
+    padding:15px;
+    border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Student Registration Form</h1>
+
+<form method="post">
+
+<input type="text"
+       name="name"
+       placeholder="Enter Name"
+       required>
+
+<input type="email"
+       name="email"
+       placeholder="Enter Email"
+       required>
+
+<select name="course" required>
+
+<option value="">Select Course</option>
+<option>CSE</option>
+<option>IT</option>
+<option>ECE</option>
+<option>EEE</option>
+
+</select>
+
+<button type="submit">
+Store Data
+</button>
+
+</form>
+
+<div class="success">
+<?php echo $message; ?>
+</div>
+
+<?php
+if($message != "")
+{
+?>
+
+<div class="details">
+
+<h3>Stored Information</h3>
+
+<p><b>Name:</b>
+<?php echo $name; ?>
+</p>
+
+<p><b>Email:</b>
+<?php echo $email; ?>
+</p>
+
+<p><b>Course:</b>
+<?php echo $course; ?>
+</p>
+
+</div>
+
+<?php
+}
+?>
+
+</div>
+
+</body>
+</html>
