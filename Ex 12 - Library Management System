@@ -1,0 +1,229 @@
+<?php
+
+$message = "";
+
+if(isset($_POST['addbook']))
+{
+    $bookname = $_POST['bookname'];
+    $author = $_POST['author'];
+    $category = $_POST['category'];
+
+    $data = $bookname . "|" . $author . "|" . $category . "\n";
+
+    file_put_contents(
+        "books.txt",
+        $data,
+        FILE_APPEND
+    );
+
+    $message = "Book Added Successfully!";
+}
+
+$books = [];
+
+if(file_exists("books.txt"))
+{
+    $books = file(
+        "books.txt",
+        FILE_IGNORE_NEW_LINES
+    );
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Library Management System</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+    min-height:100vh;
+    padding:30px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:20px;
+}
+
+.form-section{
+    background:#f5f5f5;
+    padding:20px;
+    border-radius:15px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.success{
+    text-align:center;
+    color:green;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📚 Library Management System</h1>
+
+<div class="form-section">
+
+<form method="post">
+
+<input
+type="text"
+name="bookname"
+placeholder="Enter Book Name"
+required>
+
+<input
+type="text"
+name="author"
+placeholder="Enter Author Name"
+required>
+
+<select name="category" required>
+
+<option value="">
+Select Category
+</option>
+
+<option>
+Programming
+</option>
+
+<option>
+Database
+</option>
+
+<option>
+Networking
+</option>
+
+<option>
+Artificial Intelligence
+</option>
+
+<option>
+Web Development
+</option>
+
+</select>
+
+<button
+type="submit"
+name="addbook">
+Add Book
+</button>
+
+</form>
+
+<div class="success">
+<?php echo $message; ?>
+</div>
+
+</div>
+
+<h2 style="margin-top:25px;color:#2563eb;">
+Available Books
+</h2>
+
+<table>
+
+<tr>
+<th>Book Name</th>
+<th>Author</th>
+<th>Category</th>
+</tr>
+
+<?php
+
+foreach($books as $book)
+{
+    $details = explode("|",$book);
+
+    echo "<tr>";
+    echo "<td>".$details[0]."</td>";
+    echo "<td>".$details[1]."</td>";
+    echo "<td>".$details[2]."</td>";
+    echo "</tr>";
+}
+
+?>
+
+</table>
+
+</div>
+
+</body>
+</html>
