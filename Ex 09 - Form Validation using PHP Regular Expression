@@ -1,0 +1,161 @@
+<?php
+
+$nameErr = $emailErr = $phoneErr = "";
+$name = $email = $phone = "";
+$success = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $phone = $_POST["phone"];
+
+    $valid = true;
+
+    // Name Validation
+    if(!preg_match("/^[A-Za-z ]+$/", $name))
+    {
+        $nameErr = "Only alphabets and spaces allowed";
+        $valid = false;
+    }
+
+    // Email Validation
+    if(!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $email))
+    {
+        $emailErr = "Invalid Email Format";
+        $valid = false;
+    }
+
+    // Phone Validation
+    if(!preg_match("/^[0-9]{10}$/", $phone))
+    {
+        $phoneErr = "Enter Valid 10 Digit Number";
+        $valid = false;
+    }
+
+    if($valid)
+    {
+        $success = "Form Submitted Successfully!";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>PHP Regex Validation</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+}
+
+.container{
+    width:450px;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0px 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.error{
+    color:red;
+    font-size:14px;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>PHP Regex Validation</h1>
+
+<form method="post">
+
+<input type="text"
+       name="name"
+       placeholder="Enter Name"
+       required>
+
+<div class="error">
+<?php echo $nameErr; ?>
+</div>
+
+<input type="text"
+       name="email"
+       placeholder="Enter Email"
+       required>
+
+<div class="error">
+<?php echo $emailErr; ?>
+</div>
+
+<input type="text"
+       name="phone"
+       placeholder="Enter Mobile Number"
+       required>
+
+<div class="error">
+<?php echo $phoneErr; ?>
+</div>
+
+<button type="submit">
+Submit
+</button>
+
+<div class="success">
+<?php echo $success; ?>
+</div>
+
+</form>
+
+</div>
+
+</body>
+</html>
