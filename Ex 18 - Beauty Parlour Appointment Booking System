@@ -1,0 +1,237 @@
+<?php
+
+$message = "";
+
+if(isset($_POST['bookappointment']))
+{
+    $name = $_POST['name'];
+    $service = $_POST['service'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $phone = $_POST['phone'];
+
+    $data = $name."|".$service."|".$date."|".$time."|".$phone."\n";
+
+    file_put_contents(
+        "appointments.txt",
+        $data,
+        FILE_APPEND
+    );
+
+    $message = "Appointment Booked Successfully!";
+}
+
+$appointments = [];
+
+if(file_exists("appointments.txt"))
+{
+    $appointments = file(
+        "appointments.txt",
+        FILE_IGNORE_NEW_LINES
+    );
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Beauty Parlour Appointment Booking</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff69b4,#ff1493,#c71585);
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+    text-align:center;
+    color:#d63384;
+    margin-bottom:25px;
+}
+
+.form-section{
+    background:#fff0f5;
+    padding:20px;
+    border-radius:15px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:2px solid #ddd;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    background:#d63384;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#b02a6f;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+}
+
+th{
+    background:#d63384;
+    color:white;
+    padding:12px;
+}
+
+td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💄 Online Beauty Parlour Appointment Booking</h1>
+
+<div class="form-section">
+
+<form method="post">
+
+<input
+type="text"
+name="name"
+placeholder="Enter Customer Name"
+required>
+
+<input
+type="text"
+name="phone"
+placeholder="Enter Mobile Number"
+required>
+
+<select name="service" required>
+
+<option value="">
+Select Service
+</option>
+
+<option>Hair Cut</option>
+<option>Hair Spa</option>
+<option>Facial</option>
+<option>Manicure</option>
+<option>Pedicure</option>
+<option>Bridal Makeup</option>
+
+</select>
+
+<label>Appointment Date</label>
+
+<input
+type="date"
+name="date"
+required>
+
+<label>Appointment Time</label>
+
+<input
+type="time"
+name="time"
+required>
+
+<button
+type="submit"
+name="bookappointment">
+Book Appointment
+</button>
+
+</form>
+
+<div class="success">
+<?php echo $message; ?>
+</div>
+
+</div>
+
+<h2 style="margin-top:25px;color:#d63384;">
+Appointment Details
+</h2>
+
+<table>
+
+<tr>
+<th>Customer Name</th>
+<th>Phone Number</th>
+<th>Service</th>
+<th>Appointment Date</th>
+<th>Appointment Time</th>
+</tr>
+
+<?php
+
+foreach($appointments as $appointment)
+{
+    $details = explode("|",$appointment);
+
+    echo "<tr>";
+    echo "<td>".$details[0]."</td>";
+    echo "<td>".$details[4]."</td>";
+    echo "<td>".$details[1]."</td>";
+    echo "<td>".$details[2]."</td>";
+    echo "<td>".$details[3]."</td>";
+    echo "</tr>";
+}
+
+?>
+
+</table>
+
+</div>
+
+</body>
+</html>
