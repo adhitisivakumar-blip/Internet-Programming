@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<college>
+
+    <student>
+        <registerNo>101</registerNo>
+        <name>Adhiti Sivakumar</name>
+        <department>CSE</department>
+        <year>First Year</year>
+        <email>adhiti@gmail.com</email>
+        <phone>9876543210</phone>
+    </student>
+
+    <student>
+        <registerNo>102</registerNo>
+        <name>Rahul Kumar</name>
+        <department>IT</department>
+        <year>Second Year</year>
+        <email>rahul@gmail.com</email>
+        <phone>9876543211</phone>
+    </student>
+
+    <student>
+        <registerNo>103</registerNo>
+        <name>Priya Sharma</name>
+        <department>ECE</department>
+        <year>Third Year</year>
+        <email>priya@gmail.com</email>
+        <phone>9876543212</phone>
+    </student>
+
+</college>
